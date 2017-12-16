@@ -57,7 +57,7 @@ class PlayingCardFace(Enum):
     """
     This enumeration allows a PlayingCard to have a face.
     """
-    ace = 1
+    ace = 14
     two = 2
     three = 3
     four = 4
@@ -299,8 +299,18 @@ start tricks
 prompt each player to drop a card
 note what suit is the first drop
 error message for illegal moves
+**show drops of each player
 note if there are penalty cards
 if there are, add to the score of the trick winner
+
+clearScreen:
+in between players seeing their hands, spam \n or some other character
+
+**only add if we have time
+
+Note:
+Ace was assigned the value of 14 so that it would be higher than K in the rankings
+
 """
 
 
