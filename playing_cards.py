@@ -222,8 +222,6 @@ class PlayingCardDeck:
         """
         return str(self)
 
-deck = PlayingCardDeck()
-
 class Hand:
 	"""
     Hand of a Player.
@@ -273,3 +271,36 @@ class Player:
 
 	def __repr__(self):
 		return str(self)
+
+deck = PlayingCardDeck()
+deck.shuffle()
+print("Input name of Player One ")
+name1 = str(input())
+print("Input name of Player 2 ")
+name2 = str(input())
+print("Input name of Player 3 ")
+name3 = str(input())
+print("Input name of Player 4 ")
+name4 = str(input())
+
+p1 = (name1, 
+"""
+shit to do for the game itself:
+round(roundNumber, has2C):
+Show scores of each player
+deal cards to each player
+**check round % 4
+**ask each player in turn what cards they want to give
+
+trick (starter, firstDrop, penaltyCards, winner):
+see which player has the 2C
+designate that player as the starting player
+start tricks
+prompt each player to drop a card
+note what suit is the first drop
+error message for illegal moves
+note if there are penalty cards
+if there are, add to the score of the trick winner
+"""
+
+
