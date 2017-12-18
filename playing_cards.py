@@ -404,7 +404,9 @@ p2 = Player(name2, Hand(), 0, False)
 p3 = Player(name3, Hand(), 0, False)
 p4 = Player(name4, Hand(), 0, False)
 
-#Game()
+#Game() Don't use this until you code trick
+
+Round(1)
 
 
  
