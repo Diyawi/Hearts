@@ -222,6 +222,9 @@ class PlayingCardDeck:
         """
         return str(self)
 
+deck = PlayingCardDeck()
+deck.shuffle()
+
 class Hand:
 	"""
     Hand of a Player.
@@ -252,6 +255,18 @@ class Hand:
 	def __repr__(self):
 		return str(self)
 
+	def playCard(self, card):
+		"""
+		returns the value of a card and removes that card from the hand. Accepts string values
+		"""
+		for i in self.hand:
+			if repr(i) == card:
+				self.hand.remove(i)
+				return i
+
+	def addCard(self, card):
+		self.hand.append(card)
+
 class Player:
 	"""
 	Player in the game. Includes name, hand, score and if they are going first
@@ -272,18 +287,127 @@ class Player:
 	def __repr__(self):
 		return str(self)
 
-deck = PlayingCardDeck()
-deck.shuffle()
-print("Input name of Player One ")
+def Round(number):
+	deck.shuffle()
+
+	if number % 4 == 1:
+		spam()
+		print(p1)
+		print("Choose three cards to pass left to Player 2 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p2)
+		print("Choose three cards to pass left to Player 3 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p3)
+		print("Choose three cards to pass left to Player 4 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p4)
+		print("Choose three cards to pass left to Player 1 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+	elif number % 4 == 2:
+		spam()
+		print(p1)
+		print("Choose three cards to pass right to Player 4 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p4, a, b, c)
+
+		spam()
+		print(p2)
+		print("Choose three cards to pass right to Player 1 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p3)
+		print("Choose three cards to pass right to Player 2 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p4)
+		print("Choose three cards to pass right to Player 3 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+	elif number % 4 == 3:
+		spam()
+		print(p1)
+		print("Choose three cards to pass right to Player 4 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p4, a, b, c)
+
+		spam()
+		print(p2)
+		print("Choose three cards to pass right to Player 1 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p3)
+		print("Choose three cards to pass right to Player 2 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+
+		spam()
+		print(p4)
+		print("Choose three cards to pass right to Player 3 (input format: AS AD AH): ")
+		a, b, c = input().strip().split(' ')
+		passCard(p1, p2, a, b, c)
+	else:
+		pass
+
+	#13 tricks
+
+def Game():
+	i = 1
+	while p1.score < 100 and p2.score < 100 and p3.score < 100 and p4.score < 100:
+		Round(i)
+		i += 1
+
+def passCard(playerFrom, playerTo, card1, card2, card3):
+	"""
+	passes 3 cards from one player to another
+	"""
+	playerTo.hand.addCard(playerFrom.hand.playCard(card1))
+	playerTo.hand.addCard(playerFrom.hand.playCard(card2))
+	playerTo.hand.addCard(playerFrom.hand.playCard(card3))
+
+def spam():
+	"""
+	for adding whitespace
+	"""
+	for i in range(0, 100):
+		print("*")
+
+print("Input name of Player One: ")
 name1 = str(input())
-print("Input name of Player 2 ")
+print("Input name of Player 2: ")
 name2 = str(input())
-print("Input name of Player 3 ")
+print("Input name of Player 3: ")
 name3 = str(input())
-print("Input name of Player 4 ")
+print("Input name of Player 4: ")
 name4 = str(input())
 
-p1 = (name1, 
+p1 = Player(name1, Hand(), 0, False)
+p2 = Player(name2, Hand(), 0, False)
+p3 = Player(name3, Hand(), 0, False)
+p4 = Player(name4, Hand(), 0, False)
+
+#Game()
+
+
+ 
 """
 shit to do for the game itself:
 round(roundNumber, has2C):
@@ -299,18 +423,6 @@ start tricks
 prompt each player to drop a card
 note what suit is the first drop
 error message for illegal moves
-**show drops of each player
 note if there are penalty cards
 if there are, add to the score of the trick winner
-
-clearScreen:
-in between players seeing their hands, spam \n or some other character
-
-**only add if we have time
-
-Note:
-Ace was assigned the value of 14 so that it would be higher than K in the rankings
-
 """
-
-
