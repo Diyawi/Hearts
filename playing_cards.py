@@ -172,6 +172,9 @@ class PlayingCard:
         """
         return self.face.value == other.face.value
 
+    def __hash__(self):
+    	return self.face.value
+
 class PlayingCardDeck:
     """
     A playing card deck used in many card games.
@@ -237,6 +240,10 @@ class Hand:
 		self.hand = []
 		for x in range(0, 13):
 			self.hand.append(deck.deal())
+		self.hand.sort()
+
+	def __contains__(self, card):
+		return True
 
 	def __str__(self):
 		"""
@@ -263,9 +270,11 @@ class Hand:
 			if repr(i) == card:
 				self.hand.remove(i)
 				return i
+		self.hand.sort()
 
 	def addCard(self, card):
 		self.hand.append(card)
+		self.hand.sort()
 
 class Player:
 	"""
@@ -287,87 +296,115 @@ class Player:
 	def __repr__(self):
 		return str(self)
 
+	def starts(self):
+		self.isFirst = True
+
+	def notStart(self):
+		self.isFirst = False
+
 def Round(number):
+
 	deck.shuffle()
 
 	if number % 4 == 1:
 		spam()
 		print(p1)
-		print("Choose three cards to pass left to Player 2 (input format: AS AD AH): ")
+		print("Choose three cards to pass left to " + p2.name + " (input format: AS AD AH): ")
 		a, b, c = input().strip().split(' ')
 		passCard(p1, p2, a, b, c)
 
 		spam()
 		print(p2)
-		print("Choose three cards to pass left to Player 3 (input format: AS AD AH): ")
+		print("Choose three cards to pass left to " + p3.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p2, p3, a, b, c)
 
 		spam()
 		print(p3)
-		print("Choose three cards to pass left to Player 4 (input format: AS AD AH): ")
+		print("Choose three cards to pass left to " + p4.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p3, p4, a, b, c)
 
 		spam()
 		print(p4)
-		print("Choose three cards to pass left to Player 1 (input format: AS AD AH): ")
+		print("Choose three cards to pass left to " + p1.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p4, p1, a, b, c)
 
 	elif number % 4 == 2:
 		spam()
 		print(p1)
-		print("Choose three cards to pass right to Player 4 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p4.name + " (input format: AS AD AH): ")
 		a, b, c = input().strip().split(' ')
 		passCard(p1, p4, a, b, c)
 
 		spam()
 		print(p2)
-		print("Choose three cards to pass right to Player 1 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p1.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p2, p1, a, b, c)
 
 		spam()
 		print(p3)
-		print("Choose three cards to pass right to Player 2 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p2.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p3, p2, a, b, c)
 
 		spam()
 		print(p4)
-		print("Choose three cards to pass right to Player 3 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p3.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p4, p3, a, b, c)
 
 	elif number % 4 == 3:
 		spam()
 		print(p1)
-		print("Choose three cards to pass right to Player 4 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p3.name + " (input format: AS AD AH): ")
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p4, a, b, c)
+		passCard(p1, p3, a, b, c)
 
 		spam()
 		print(p2)
-		print("Choose three cards to pass right to Player 1 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p4.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p2, p4, a, b, c)
 
 		spam()
 		print(p3)
-		print("Choose three cards to pass right to Player 2 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p1.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p3, p1, a, b, c)
 
 		spam()
 		print(p4)
-		print("Choose three cards to pass right to Player 3 (input format: AS AD AH): ")
+		print("Choose three cards to pass right to " + p2.name + " (input format: AS AD AH): ")
+		print("You cannot choose: " + a + " " + b + " " + c)
 		a, b, c = input().strip().split(' ')
-		passCard(p1, p2, a, b, c)
+		passCard(p4, p2, a, b, c)
 	else:
 		pass
 
-	#13 tricks
+	card = PlayingCard(PlayingCardSuit.clubs, PlayingCardFace.two)
+	if card in p1.hand:
+		p1.starts()
+	elif card in p2.hand:
+		p2.starts()
+	elif card in p3.hand:
+		p3.starts()
+	elif card in p4.hand:
+		p4.starts()
+
+	for i in range(0, 13):
+		Trick(p1, p2, p3, p4)
+		pass
 
 def Game():
 	i = 1
@@ -382,13 +419,159 @@ def passCard(playerFrom, playerTo, card1, card2, card3):
 	playerTo.hand.addCard(playerFrom.hand.playCard(card1))
 	playerTo.hand.addCard(playerFrom.hand.playCard(card2))
 	playerTo.hand.addCard(playerFrom.hand.playCard(card3))
-
+	
 def spam():
 	"""
 	for adding whitespace
 	"""
 	for i in range(0, 100):
 		print("*")
+
+def Highest(card1, card2, card3, card4, suit):
+	card = [card1, card2, card3, card4]
+	card = [i for i in card if i.suit == suit]
+
+	moreCards = []
+
+	for i in card:
+		moreCards.append(i)
+
+	for i in card:
+		for j in card:
+			if i.face.value < j.face.value:
+				if i in moreCards:
+					moreCards.remove(i)
+
+	return moreCards[0]
+
+def winner(p1, p2, p3, p4, card1, card2, card3, card4):
+	suit = card1.suit
+	trick = {repr(card1): p1, repr(card2): p2, repr(card3): p3, repr(card4): p4}
+	score = checkScore(card1, card2, card3, card4)
+	winningCard = repr(Highest(card1, card2, card3, card4, suit))
+	trick.get(winningCard).score += score
+	p1.isFirst = False
+	p2.isFirst = False
+	p3.isFirst = False
+	p4.isFirst = False
+	#trick.get(winningCard).isFirst = True
+	return trick.get(winningCard)
+
+def checkScore(card1, card2, card3, card4):
+	cards = [card1, card2, card3, card4]
+	score = 0
+	for i in cards:
+		if i.suit == PlayingCardSuit.hearts:
+			score +=1
+	return score
+
+def Trick(p1, p2, p3, p4):
+	spam()
+
+	if p1.isFirst == True:
+		print(p1)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card1 = p1.hand.playCard(input())
+		spam()
+		print("Cards Played: ") 
+		print(repr(card1))
+		print(p2)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card2 = p2.hand.playCard(input())
+		spam()
+		print("Cards Played: ") 
+		print(repr(card1))
+		print(repr(card2))
+		print(p3)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card3 = p3.hand.playCard(input())
+		spam()
+		print("Cards Played: ") 
+		print(repr(card1))
+		print(repr(card2))
+		print(repr(card3))
+		print(p4)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card4 = p4.hand.playCard(input())
+		winner(p1, p2, p3, p4, card1, card2, card3, card4).isFirst = True
+	elif p2.isFirst == True:
+		print(p2)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card2 = p2.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card2))
+		print(p3)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card3 = p3.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card2))
+		print(repr(card3))
+		print(p4)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card4 = p4.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card2))
+		print(repr(card3))
+		print(repr(card4))
+		print(p1)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card1 = p1.hand.playCard(input())
+		winner(p2, p3, p4, p1, card2, card3, card4, card1).isFirst = True
+	elif p3.isFirst == True:
+		print(p3)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card3 = p3.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card3))
+		print(p4)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card4 = p4.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card3))
+		print(repr(card4))
+		print(p1)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card1 = p1.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card3))
+		print(repr(card4))
+		print(repr(card3))
+		print(p2)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card2 = p2.hand.playCard(input())
+		winner(p3, p4, p1, p2, card3, card4, card1, card2).isFirst = True
+	else:
+		print(p4)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card4 = p4.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card4))
+		print(p1)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card1 = p1.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card4))
+		print(repr(card1))
+		print(p2)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card2 = p2.hand.playCard(input())
+		spam()
+		print("Cards Played: ")
+		print(repr(card4))
+		print(repr(card1))
+		print(repr(card2))
+		print(p3)
+		print("Pick a card to play, please don't choose an illegal card we don't have error handling haha: ")
+		card3 = p3.hand.playCard(input())
+		winner(p4, p1, p2, p3, card4, card1, card2, card3).isFirst = True
 
 print("Input name of Player One: ")
 name1 = str(input())
@@ -404,19 +587,18 @@ p2 = Player(name2, Hand(), 0, False)
 p3 = Player(name3, Hand(), 0, False)
 p4 = Player(name4, Hand(), 0, False)
 
-#Game() Don't use this until you code trick
+a = PlayingCard(PlayingCardSuit.clubs, PlayingCardFace.two)
+b = PlayingCard(PlayingCardSuit.clubs, PlayingCardFace.ace)
+c = PlayingCard(PlayingCardSuit.clubs, PlayingCardFace.three)
+d = PlayingCard(PlayingCardSuit.hearts, PlayingCardFace.ace)
 
-Round(1)
+
+Game()
 
 
- 
 """
 shit to do for the game itself:
-round(roundNumber, has2C):
-Show scores of each player
-deal cards to each player
-**check round % 4
-**ask each player in turn what cards they want to give
+round(roundNumber):
 
 trick (starter, firstDrop, penaltyCards, winner):
 see which player has the 2C
